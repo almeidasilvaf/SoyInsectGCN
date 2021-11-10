@@ -1,5 +1,5 @@
-Package: SoyInsectGCN
-Title: Gene coexpression network of soybean infested with insects
+Package: SoyPestGCN
+Title: Gene coexpression network of soybean infested with pests
 Version: 0.0.0.9000
 Authors@R: 
     c(
@@ -15,8 +15,8 @@ Authors@R:
     )
 Description: This is a Shiny app to explore a gene coexpression network
     inferred from RNA-seq data of soybean tissues infested with
-    insects. Users can input a gene ID and explore its degree, hub status, 
-    module, and module's enriched pathways and biological processes.
+    insects and nematodes. Users can input a gene ID and explore its degree, 
+    hub status, module, and module's enriched pathways and biological processes.
     A network plot is also displayed for each module, with the input gene
     highlighted.
 License: GPL-3
@@ -33,7 +33,7 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

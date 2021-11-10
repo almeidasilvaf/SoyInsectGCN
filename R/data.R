@@ -38,7 +38,7 @@
 #' @format A data frame with the x and y coordinates of nodes and edges between
 #' them for plotting.
 #' @examples 
-#' data(plodata)
+#' data(plotdata)
 #' @usage data(plotdata)
 "plotdata"
 
