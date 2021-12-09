@@ -57,7 +57,7 @@ app_ui <- function(request) {
             solidHeader = TRUE,
             width=12,
             collapsible = TRUE, collapsed = TRUE,
-            footer="The plot might take a while to load. If your input gene is not labeled in the plot, it means it only makes weak connections, resulting in its removal during the filtering step.",
+            footer="The plot might take a while to load, especially for the nematode GCN, as modules are very big and densely connected. If your input gene is not labeled in the plot, it means it only makes weak connections, resulting in its removal during the filtering step.",
             shiny::plotOutput("netviz_static"))
         )
       )
