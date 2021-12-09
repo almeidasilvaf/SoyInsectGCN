@@ -123,7 +123,9 @@ edgelist2plotdata <- function(edges = NULL, genes_modules = NULL,
         filtered_edges_df <- filtered_edges_df[, c(1:4)]
         names(filtered_edges_df) <- c("Gene1", "Gene2", "Weight", "Module")
     } else {
-        filtered_edges_df <- edges
+        filtered_edges_df <- merge(edges, genes_modules, 
+                                   by.x = "Gene1", by.y = "Genes")
+        names(filtered_edges_df)[4] <- "Module"
     }
 
     modules <- unique(genes_modules$Modules)
@@ -138,6 +140,11 @@ edgelist2plotdata <- function(edges = NULL, genes_modules = NULL,
 
 
 load("~/Dropbox/Working_from_home/GWAS_GCN_pest/products/result_files/shiny_edgelists.rda")
+load("~/Documents/SoyPestGCN_rawdata/shiny_edgelists.rda")
+edges <- Reduce(rbind, lapply(edges, function(x) {
+    y <- x[x$Weight > 0.9, ]
+    return(y)
+}))
 load(here("data", "genes_modules.rda"))
 load(here("data", "scaled_degree.rda"))
 genes_modules_insect <- genes_modules[genes_modules$taxon == "insect", 1:2]
@@ -147,7 +154,9 @@ plotdata_insect <- edgelist2plotdata(
 )
 
 load("~/Dropbox/Working_from_home/GWAS_GCN_pest/products/result_files/shiny_nematode_edgelists.rda")
+edgelist <- edgelist[edgelist$Weight >= 0.9, ]
 
+load("~/Documents/SoyPestGCN_rawdata/nematode_edgelist_filt0.9.rda")
 genes_modules_nematode <- genes_modules[genes_modules$taxon == "nematode", 1:2]
 scaled_degree_nematode <- scaled_degree[scaled_degree$taxon == "nematode", 1:2]
 edges <- merge(edgelist, genes_modules_nematode, by.x="Node1", by.y="Genes")
@@ -156,32 +165,16 @@ names(edges) <- c("Gene1", "Gene2", "Weight", "Modules")
 edges <- merge(edges, genes_modules_nematode, by.x = "Gene2", by.y="Genes")
 edges <- edges[edges$Modules.x == edges$Modules.y, ]
 edges <- edges[, 1:4]
-names(edges)[4] <- "Modules"
-edges <- split(edges, edges$Modules)
-edges2 <- lapply(edges, function(x) {
-    y <- x
-    y$Modules <- NULL
-    return(y)
-})
-edges <- edges2
-rm(edges2)
-    
+names(edges)[4] <- "Module"
+
 plotdata_nematode <- edgelist2plotdata(
     edges, genes_modules_nematode, scaled_degree_nematode
 )
 
-plotdata <- list(insect = plotdata_insect,
-                 nematode = plotdata_nematode)
-plotdata_reduced <- lapply(plotdata, function(x) {
-    y <- x[x$Weight > 0.8, ]
-    y$Weight <- NULL
-    return(y)
-})
-usethis::use_data(plotdata_reduced, compress="xz", overwrite=TRUE) # then renamed to plotdata.rda
+plotdata_reduced <- list(insect = plotdata_insect,
+                         nematode = plotdata_nematode)
 
-# This was saved and then moved to a different directory for size issues
-usethis::use_data(plotdata, compress="xz", overwrite=TRUE)
-
+usethis::use_data(plotdata_reduced, compress="xz", overwrite=TRUE)
 
 
 #----Hubs.rda-------------------------------------------------------------------
