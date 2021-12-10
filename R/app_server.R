@@ -80,6 +80,6 @@ app_server <- function(input, output, session) {
         style = "bootstrap",
         rownames = FALSE,
         filter = 'top',
-        options = list(lengthMenu = c(5, 10, 25, 50, 100), pageLength = 5)
+        options = list(lengthMenu = c(5, 10, 25, 50, 100), pageLength = 25)
         )
 }
