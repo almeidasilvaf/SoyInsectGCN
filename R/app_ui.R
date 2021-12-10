@@ -50,15 +50,6 @@ app_ui <- function(request) {
             width = 12,
             collapsible = TRUE,
             shiny::div(DT::DTOutput("mod_enrich"), style = "font-size: 90%;")),
-        ),
-        shiny::fluidRow(
-          shinydashboard::box(
-            title="Network visualization",
-            solidHeader = TRUE,
-            width=12,
-            collapsible = TRUE, collapsed = TRUE,
-            footer="The plot might take a while to load, especially for the nematode GCN, as modules are very big and densely connected. If your input gene is not labeled in the plot, it means it only makes weak connections, resulting in its removal during the filtering step.",
-            shiny::plotOutput("netviz_static"))
         )
       )
     )

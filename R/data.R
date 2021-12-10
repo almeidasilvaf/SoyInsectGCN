@@ -30,19 +30,6 @@
 "hubs"
 
 
-#' Network plotting data
-#' 
-#' Pre-computed data frame of network plotting data.
-#' 
-#' @name plotdata_reduced
-#' @format A data frame with the x and y coordinates of nodes and edges between
-#' them for plotting.
-#' @examples
-#' data(plotdata_reduced)
-#' @usage data(plotdata_reduced)
-"plotdata_reduced"
-
-
 #' Module enrichment results
 #' 
 #' @name mod_enrich
